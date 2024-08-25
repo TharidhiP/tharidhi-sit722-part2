@@ -1,34 +1,30 @@
-# Write Kubernetes Deployment Script
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastapi-deployment
+  name: book-catalog
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: fastapi-app
+      app: book-catalog
   template:
     metadata:
       labels:
-        app: fastapi-app
+        app: book-catalog
     spec:
       containers:
-      - name: fastapi-container
-        image: your-dockerhub-username/your-image-name:latest
+      - name: book-catalog
+        image: book_catalog:latest
         ports:
         - containerPort: 80
-        env:
-        - name: DATABASE_URL
-          value: "postgresql://username:password@hostname:5432/dbname"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: fastapi-service
+  name: book-catalog-service
 spec:
   selector:
-    app: fastapi-app
+    app: book-catalog
   ports:
     - protocol: TCP
       port: 80
